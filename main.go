@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"strconv"
+)
 
 //accountHolder Struct
 type accountHolder struct {
@@ -9,6 +12,16 @@ type accountHolder struct {
 	accountBal   float64
 }
 
+func (a accountHolder) Info() string {
+	return ("Account Number: " + strconv.Itoa(a.accountNum) +
+		"\nLast Name: " + a.lname +
+		"\nFirst Name: " + a.fName +
+		"\nAccount balance: " + strconv.FormatFloat(a.accountBal, 'f', 2, 64))
+}
+
 func main() {
-	fmt.Println("What should be my project?")
+
+	var admin accountHolder = accountHolder{21933, "Carol", "Jenkins", 15942.93}
+	fmt.Println(admin.Info())
+
 }
