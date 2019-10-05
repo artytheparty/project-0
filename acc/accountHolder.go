@@ -1,6 +1,9 @@
 package acc
 
-import "strconv"
+import (
+	"fmt"
+	"strconv"
+)
 
 //AccountHolder Structure will be used to create a new account
 type AccountHolder struct {
@@ -26,5 +29,15 @@ func CreateAccount(counter int, fname string, lname string, un string, pass stri
 
 //Withdraw will take out the specified value
 func (a *AccountHolder) Withdraw(w float64) {
-	a.accountBal = a.accountBal - w
+	if a.accountBal > w {
+		a.accountBal = a.accountBal - w
+	} else {
+		fmt.Println("Cannot withdraw more than your available balance!")
+	}
+
+}
+
+//Deposit method
+func (a *AccountHolder) Deposit(w float64) {
+	a.accountBal += w
 }
