@@ -14,10 +14,10 @@ type AccountHolder struct {
 
 //Info will print out the infor of an account
 func (a AccountHolder) Info() string {
-	return ("Account Number: " + strconv.Itoa(a.accountNum) +
+	return ("\nAccount Number: " + strconv.Itoa(a.accountNum) +
 		"\nLast Name: " + a.lname +
 		"\nFirst Name: " + a.fName +
-		"username :" + a.username +
+		"\nusername :" + a.username +
 		"\nAccount balance: " + strconv.FormatFloat(a.accountBal, 'f', 2, 64))
 }
 

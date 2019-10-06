@@ -1,0 +1,26 @@
+
+Account Number: 1
+Last Name: johnson
+First Name: john
+username :jjohnson
+Account balance: 5000.00
+Account Number: 2
+Last Name: petersson
+First Name: john
+username :jjohnson
+Account balance: 54000.00
+Account Number: 3
+Last Name: johnson
+First Name: john
+username :jjohnson
+Account balance: 500530.00
+Account Number: 4
+Last Name: johnson
+First Name: john
+username :jjohnson
+Account balance: 300.00
+Account Number: 5
+Last Name: johnson
+First Name: john
+username :jjohnson
+Account balance: 20.00

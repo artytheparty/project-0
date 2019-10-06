@@ -55,6 +55,6 @@ func TestDeposit(t *testing.T) {
 	}
 }
 
-func TestTransferFunds(t *testing.T) {
+// func TestTransferFunds(t *testing.T) {
 
-}
+// }
