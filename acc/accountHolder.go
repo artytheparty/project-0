@@ -14,12 +14,13 @@ type AccountHolder struct {
 
 //Info will print out the infor of an account
 func (a AccountHolder) Info() string {
-	return ("\nUsername: " + a.username +
-		"\nPassword: " + a.psw +
-		"\nLast Name: " + a.lName +
-		"\nFirst Name :" + a.fName +
-		"\nAcccount Number" + strconv.Itoa(a.accountNum) +
-		"\nAccount balance: " + strconv.FormatFloat(a.accountBal, 'f', 2, 64))
+	return ("Username: " + a.username +
+		" Password: " + a.psw +
+		" Last Name: " + a.lName +
+		" First Name: " + a.fName +
+		" Account Number: " + strconv.Itoa(a.accountNum) +
+		" Account Balance: " + strconv.FormatFloat(a.accountBal, 'f', 2, 64)) +
+		"\n"
 }
 
 //CreateAccount will create an account and return the

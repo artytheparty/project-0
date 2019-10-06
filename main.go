@@ -9,13 +9,13 @@ import (
 
 func main() {
 	fmt.Println("Welcome to the Banking App")
-	admin := acc.CreateAccount(1, "john", "johnson", "jjohnson", "password", 5000)
-	admin2 := acc.CreateAccount(2, "john", "petersson", "jjohnson", "password", 54000)
-	admin3 := acc.CreateAccount(3, "john", "johnson", "jjohnson", "password", 500530)
-	admin4 := acc.CreateAccount(4, "john", "johnson", "jjohnson", "password", 300)
-	admin5 := acc.CreateAccount(5, "john", "johnson", "jjohnson", "password", 20)
+	admin := acc.CreateAccount("arty", "password", "arty", "sucess", 1, 5000)
+	admin2 := acc.CreateAccount("jjohna", "password", "john", "johna", 1, 5000)
+	admin3 := acc.CreateAccount("khan", "password", "john", "johna", 1, 5000)
+	admin4 := acc.CreateAccount("shword", "password", "john", "johna", 1, 5000)
+	admin5 := acc.CreateAccount("uthough", "password", "john", "johna", 1, 5000)
 
-	fmt.Println(admin.Info())
+	//fmt.Println(admin.Info())
 	accounts := make(map[int]acc.AccountHolder)
 	accounts[1] = admin
 	accounts[2] = admin2
@@ -23,6 +23,7 @@ func main() {
 	accounts[4] = admin4
 	accounts[5] = admin5
 
-	dbhandling.WriteToFile(accounts)
+	//dbhandling.WriteToFile(accounts)
+	dbhandling.ReadFile()
 
 }
