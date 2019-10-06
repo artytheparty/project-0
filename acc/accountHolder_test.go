@@ -34,7 +34,7 @@ import (
 // }
 
 func TestWithdraw(t *testing.T) {
-	a := CreateAccount(5, "john", "johnson", "jjohnson", "password", 5000)
+	a := CreateAccount("jjohna", "password", "john", "johna", 1, 5000)
 	a.accountBal = 100
 	a.Withdraw(110)
 	if a.accountBal == 100 {
@@ -46,7 +46,7 @@ func TestWithdraw(t *testing.T) {
 }
 
 func TestDeposit(t *testing.T) {
-	a := CreateAccount(5, "john", "johnson", "jjohnson", "password", 5000)
+	a := CreateAccount("jjohna", "password", "john", "johna", 1, 5000)
 	a.Deposit(50)
 	if a.accountBal == 5050 {
 		fmt.Println("deposit works well")

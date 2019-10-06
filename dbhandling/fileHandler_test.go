@@ -8,6 +8,6 @@ func TestWriteToFile(t *testing.T) {
 
 }
 
-func TestAddCustomer(t *testing.T) {
+func TestReadFile(t *testing.T) {
 
 }
