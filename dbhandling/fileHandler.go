@@ -33,12 +33,15 @@ func ReadFile() {
 	if err != nil {
 		fmt.Println(err)
 	}
-
 	scanner := bufio.NewReader(f)
 	var txtline string
 	for {
 		txtline, err = scanner.ReadString('\n')
 		fmt.Println(txtline)
+
+		if err != nil {
+			break
+		}
 		uname := txtline[9:strings.Index(txtline, "Password: ")]
 		pass := txtline[strings.Index(txtline, "Password: ")+9 : strings.Index(txtline, "Last Name: ")]
 		lname := txtline[strings.Index(txtline, "Last Name: ")+10 : strings.Index(txtline, "First Name: ")]
@@ -46,9 +49,6 @@ func ReadFile() {
 		aNum := txtline[strings.Index(txtline, "Account Number: ")+15 : strings.Index(txtline, "Account Balance: ")]
 		aBal, _ := strconv.ParseFloat(txtline[strings.Index(txtline, "Account Balance: ")+17:len(txtline)-1], 64)
 		fmt.Println(uname, pass, lname, fname, aNum, aBal)
-		if err != nil {
-			break
-		}
 	}
 	if err != io.EOF {
 		fmt.Printf("failed: %v\n", err)
