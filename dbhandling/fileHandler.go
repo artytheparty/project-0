@@ -26,8 +26,8 @@ func WriteToFile(c map[int]acc.AccountHolder) {
 }
 
 //ReadFile will access the accounts db
-func ReadFile() {
-	//holder := make(map[string]acc.AccountHolder)
+func ReadFile() map[string]acc.AccountHolder {
+	holder := make(map[string]acc.AccountHolder)
 	f, err := os.Open("accounts.txt")
 	defer f.Close()
 	if err != nil {
@@ -46,17 +46,18 @@ func ReadFile() {
 		pass := txtline[strings.Index(txtline, "Password: ")+9 : strings.Index(txtline, "Last Name: ")]
 		lname := txtline[strings.Index(txtline, "Last Name: ")+10 : strings.Index(txtline, "First Name: ")]
 		fname := txtline[strings.Index(txtline, "First Name: ")+11 : strings.Index(txtline, "Account Number: ")]
-		aNum := txtline[strings.Index(txtline, "Account Number: ")+15 : strings.Index(txtline, "Account Balance: ")]
+		aNum, err2 := strconv.Atoi(txtline[strings.Index(txtline, "Account Number: ")+15 : strings.Index(txtline, "Account Balance: ")])
+		if err2 == nil {
+			fmt.Print(err2)
+		}
 		aBal, _ := strconv.ParseFloat(txtline[strings.Index(txtline, "Account Balance: ")+17:len(txtline)-1], 64)
-		fmt.Println(uname, pass, lname, fname, aNum, aBal)
+		//fmt.Println(uname, pass, lname, fname, aNum, aBal)
+		holder["uname"] = acc.CreateAccount(uname, pass, fname, lname, aNum, aBal)
 	}
 	if err != io.EOF {
 		fmt.Printf("failed: %v\n", err)
 	}
-	return
-	//fmt.Println("error2")
-	//f.Close()
-	//fmt.Println(txtline)
+	return holder
 
 }
 

@@ -33,7 +33,10 @@ func main() {
 	accounts[9] = admin9
 	accounts[10] = admin10
 
-	dbhandling.WriteToFile(accounts)
-	dbhandling.ReadFile()
+	//dbhandling.WriteToFile(accounts)
+	accounts2 := dbhandling.ReadFile()
+	for k := range accounts2 {
+		accounts2[k].Info()
+	}
 
 }
