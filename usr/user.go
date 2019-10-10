@@ -1,8 +1,6 @@
 package usr
 
 import (
-	_ "fmt"
-
 	"github.com/artytheparty/project-0/acc"
 )
 

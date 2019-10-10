@@ -10,6 +10,7 @@
 *.so
 *.dylib
 *.code-workspace
+*.pgsql
 
 # Test binary, built with `go test -c`
 *.test
