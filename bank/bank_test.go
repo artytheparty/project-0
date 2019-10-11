@@ -1,15 +1,13 @@
-package main
+package bank
 
 import (
 	"database/sql"
 	"fmt"
+	"testing"
 
-	"github.com/artytheparty/project-0/bank"
 	"github.com/artytheparty/project-0/usr"
-	_ "github.com/lib/pq"
 )
 
-//database constants
 const (
 	host     = "localhost"
 	port     = 5432
@@ -18,7 +16,7 @@ const (
 	dbname   = "postgres"
 )
 
-func main() {
+func TestDeposit(t *testing.T) {
 	//opening conncetion to the database
 	connecDB := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=disable",
 		host, port, user, password, dbname)
@@ -27,10 +25,9 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	//actual program running here.
-	var tempUSR usr.User = bank.GetUsrInfo("akhv", dataB)
+	var tempUSR usr.User = GetUsrInfo("akhv", dataB)
 	fmt.Println(tempUSR)
-	bank.Deposit(tempUSR, 200, dataB)
-	fmt.Println(tempUSR)
+	//if (tempUSR.username) == "akhv" {
 
+	//}
 }

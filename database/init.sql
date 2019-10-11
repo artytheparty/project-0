@@ -1,9 +1,9 @@
 create table users (
     usrID VARCHAR PRIMARY KEY,
     username varchar unique,
-    passwd VARCHAR,
-    fName varchar,
-    lName VARCHAR
+    passwd VARCHAR NOT NULL,
+    fName VARCHAR NOT NULL,
+    lName VARCHAR NOT NULL
 );
 
 insert into users values ('1','akhv','password','Artem','Khvan');
@@ -18,10 +18,10 @@ insert into users values ('9','pparker','password','Peter','Parker');
 insert into users values ('10','jonm','password','Jon','Martinez');
 
 create table accounts (
-    accNum VARCHAR,
-    usrID VARCHAR REFERENCES users(usrID),
-    accType VARCHAR,
-    accBal FLOAT,
+    accNum VARCHAR NOT NULL,
+    usrID VARCHAR REFERENCES users(usrID) NOT NULL,
+    accType VARCHAR NOT NULL,
+    accBal DECIMAL NOT NULL,
     PRIMARY KEY (accNum,usrID)
 );
 
