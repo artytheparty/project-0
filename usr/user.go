@@ -17,3 +17,13 @@ func CreateUser(id string, username string, password string, fName string, lName
 func (a *User) GetAccounts() []acc.Account {
 	return a.accounts
 }
+
+//UpdateUserAccounts method updates the account with new updated account slice
+func UpdateUserAccounts(u User, a []acc.Account) User {
+	id := u.id
+	username := u.username
+	password := u.password
+	fName := u.fName
+	lName := u.lName
+	return CreateUser(id, username, password, fName, lName, a)
+}

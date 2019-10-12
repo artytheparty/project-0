@@ -20,7 +20,7 @@ A Go CLI program. Update `Readme.md` with a name, a list of implemented and plan
 - [x] struct
 - [] interface
 - [x] functions/methods
-- [x] unit tests/benchmarks
+- [] unit tests/benchmarks
 
 ### Functionality
 - [] CRUD - Create, Read, Update, Delete data

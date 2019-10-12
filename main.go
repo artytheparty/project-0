@@ -30,7 +30,10 @@ func main() {
 	//actual program running here.
 	var tempUSR usr.User = bank.GetUsrInfo("akhv", dataB)
 	fmt.Println(tempUSR)
-	bank.Deposit(tempUSR, 200, dataB)
+	//bank.Deposit(tempUSR, 200, dataB)
+	//fmt.Println(tempUSR)
+	tempUSR = bank.Withdraw(tempUSR, 200, dataB)
 	fmt.Println(tempUSR)
+	//fmt.Print(len(tempUSR.GetAccounts()))
 
 }
