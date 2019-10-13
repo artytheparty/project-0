@@ -4,8 +4,6 @@ import (
 	"database/sql"
 	"fmt"
 
-	"github.com/artytheparty/project-0/bank"
-	"github.com/artytheparty/project-0/usr"
 	_ "github.com/lib/pq"
 )
 
@@ -28,12 +26,16 @@ func main() {
 		panic(err)
 	}
 	//actual program running here.
+	/* EVERYTHING RUNS AND BEEN TESTED HERE
 	var tempUSR usr.User = bank.GetUsrInfo("akhv", dataB)
-	fmt.Println(tempUSR)
-	//bank.Deposit(tempUSR, 200, dataB)
-	//fmt.Println(tempUSR)
+	fmt.Println("unaltered usr\n", tempUSR)
+	bank.Deposit(tempUSR, 200, dataB)
+	fmt.Println("User after deposit\n", tempUSR)
 	tempUSR = bank.Withdraw(tempUSR, 200, dataB)
-	fmt.Println(tempUSR)
-	//fmt.Print(len(tempUSR.GetAccounts()))
+	fmt.Println("all changes to user", tempUSR)
 
+	bank.UpdateUserDB(dataB, tempUSR)
+	var tempUSR2 usr.User = bank.GetUsrInfo("akhv", dataB)
+	fmt.Println("pulled account from db\n", tempUSR2)
+	*/
 }

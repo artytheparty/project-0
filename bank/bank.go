@@ -104,7 +104,7 @@ func UpdateUserDB(db *sql.DB, a usr.User) {
 	if err != nil {
 		fmt.Println("Not running")
 	}
-	for i := range a.GetAccounts() {
+	for i := range accountsHolder {
 		_, errAcc := db.Exec("UPDATE accounts SET accnum=$1, usrid=$2, acctype=$3, accbal=$4 WHERE accnum=$5",
 			accountsHolder[i].GetAccountNum(), accountsHolder[i].GetUsrID(), accountsHolder[i].GetAccountType(), accountsHolder[i].GetAccountBal(), accountsHolder[i].GetAccountNum())
 		if errAcc != nil {
