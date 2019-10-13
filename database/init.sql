@@ -38,3 +38,19 @@ insert into accounts values ('10', '10', 'c', 54000.23);
 insert into accounts values ('11', '1', 's', 5060.23);
 insert into accounts values ('12', '7', 's', 5040.23);
 insert into accounts values ('13', '3', 's', 5000.23);
+
+create table employees (
+    empid VARCHAR PRIMARY KEY,
+    username VARCHAR UNIQUE NOT NULL,
+    pass VARCHAR NOT NULL,
+    fname VARCHAR NOT NULL,
+    lname VARCHAR NOT NULL
+);
+
+insert into employees VALUES ('1','emp1','password','Kerry','Reyes');
+insert into employees VALUES ('2','emp2','password','James','Warren');
+insert into employees VALUES ('3','emp3','password','John','Ferner');
+insert into employees VALUES ('4','emp4','password','Maxwell','Shapiro');
+insert into employees VALUES ('5','emp5','password','Lelouch','DeParte');
+
+
