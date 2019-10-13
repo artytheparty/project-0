@@ -15,26 +15,34 @@ import (
 //both deposit and withdraw only edit the first account'
 
 //Deposit deposits amount into selected account if many
- func Deposit(a usr.User, dAmt float64, db *sql.DB) {
- 	var accHolder []acc.Account = a.GetAccounts()
- 	//get user information holders
- 	if len(a.GetAccounts()) > 1 {
- 		var i int = 0
- 		for k := range accHolder {
- 			fmt.Printf("Option: %d\n", i)
- 			accHolder[k].AccountInfo()
- 			i++
- 		}
- 		fmt.Println("Enter the correct option coresponding to your accounts: ")
- 		choice, _ := fmt.Scanln()
- 		//here the account in the array doesnt get updated
- 		//probably need a mehtod also that means withdraw doesnt work either
- 		accHolder[choice] = accHolder[choice].Deposit(dAmt)
- 	} else {
- 		accHolder[0].Deposit(dAmt)
- 	}
+func Deposit(a usr.User, dAmt float64, db *sql.DB) usr.User {
+	var accHolder []acc.Account = a.GetAccounts()
+	//get user information holders
+	if len(a.GetAccounts()) > 1 {
+		var i int = 0
+		for k := range accHolder {
+			fmt.Printf("Option: %d\n", i)
+			accHolder[k].AccountInfo()
+			i++
+		}
+		fmt.Println("Enter the correct option coresponding to your accounts: ")
+		var choice int
+		_, err := fmt.Scan(&choice)
+		if err != nil {
+			fmt.Println("Incorrect value")
+		}
+		modifiedAcc := accHolder[choice].Deposit(dAmt)
+		accHolder2 := acc.UpdateAccountSlice(accHolder, modifiedAcc, choice)
+		updtUser := usr.UpdateUserAccounts(a, accHolder2)
+		return updtUser
 
-// }
+	} else {
+		modifiedAcc := accHolder[0].Withdraw(dAmt)
+		accHolder2 := acc.UpdateAccountSlice(accHolder, modifiedAcc, 0)
+		updtUser := usr.UpdateUserAccounts(a, accHolder2)
+		return updtUser
+	}
+}
 
 //Withdraw will withdraw money from a user's account
 func Withdraw(a usr.User, dAmt float64, db *sql.DB) usr.User {
@@ -86,4 +94,22 @@ func GetUsrInfo(username string, db *sql.DB) usr.User {
 		accs = append(accs, acc.CreateAccount(aN, id, aT, aB))
 	}
 	return usr.CreateUser(id, un, pass, fN, lN, accs)
+}
+
+//UpdateUserDB pushes the updated user and user's account information to the database
+func UpdateUserDB(db *sql.DB, a usr.User) {
+	accountsHolder := a.GetAccounts()
+	_, err := db.Exec("UPDATE users SET usrid=$1, username=$2, passwd=$3, fname=$4, lname=$5 WHERE usrid=$6",
+		a.GetUsrID(), a.GetUsrUsername(), a.GetUsrPassword(), a.GetUsrFName(), a.GetUsrLName(), a.GetUsrID())
+	if err != nil {
+		fmt.Println("Not running")
+	}
+	for i := range a.GetAccounts() {
+		_, errAcc := db.Exec("UPDATE accounts SET accnum=$1, usrid=$2, acctype=$3, accbal=$4 WHERE accnum=$5",
+			accountsHolder[i].GetAccountNum(), accountsHolder[i].GetUsrID(), accountsHolder[i].GetAccountType(), accountsHolder[i].GetAccountBal(), accountsHolder[i].GetAccountNum())
+		if errAcc != nil {
+			fmt.Println("Account DB update failed")
+		}
+	}
+
 }

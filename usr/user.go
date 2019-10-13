@@ -27,3 +27,28 @@ func UpdateUserAccounts(u User, a []acc.Account) User {
 	lName := u.lName
 	return CreateUser(id, username, password, fName, lName, a)
 }
+
+//GetUsrID returns a string of the user's id which function was called on
+func (a *User) GetUsrID() string {
+	return a.id
+}
+
+//GetUsrUsername returns a string of the user's username which function was called on
+func (a *User) GetUsrUsername() string {
+	return a.username
+}
+
+//GetUsrPassword returns a string of the user's password which function was called on
+func (a *User) GetUsrPassword() string {
+	return a.password
+}
+
+//GetUsrFName returns a string of the user's fName which function was called on
+func (a *User) GetUsrFName() string {
+	return a.fName
+}
+
+//GetUsrLName returns a string of the user's lName which function was called on
+func (a *User) GetUsrLName() string {
+	return a.lName
+}
