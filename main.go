@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"fmt"
 
+	"github.com/artytheparty/project-0/ui"
 	_ "github.com/lib/pq"
 )
 
@@ -45,17 +46,9 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	//actual program running here.
-	/* EVERYTHING RUNS AND BEEN TESTED HERE
-	var tempUSR usr.User = bank.GetUsrInfo("akhv", dataB)
-	fmt.Println("unaltered usr\n", tempUSR)
-	bank.Deposit(tempUSR, 200, dataB)
-	fmt.Println("User after deposit\n", tempUSR)
-	tempUSR = bank.Withdraw(tempUSR, 200, dataB)
-	fmt.Println("all changes to user", tempUSR)
 
-	bank.UpdateUserDB(dataB, tempUSR)
-	var tempUSR2 usr.User = bank.GetUsrInfo("akhv", dataB)
-	fmt.Println("pulled account from db\n", tempUSR2)
-	*/
+	ui.Menu()
+
 }
+
+//Menu
