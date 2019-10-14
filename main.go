@@ -5,6 +5,7 @@ import (
 	"fmt"
 
 	"github.com/artytheparty/project-0/ui"
+	"github.com/artytheparty/project-0/usr"
 	_ "github.com/lib/pq"
 )
 
@@ -46,7 +47,7 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-
+	var activeUser usr.User
 	ui.Menu()
 
 }

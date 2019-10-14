@@ -5,6 +5,7 @@ import (
 	"fmt"
 
 	"github.com/artytheparty/project-0/acc"
+	"github.com/artytheparty/project-0/emp"
 	"github.com/artytheparty/project-0/usr"
 
 	//"go/types: don't report errors referring to invalid types or operands"
@@ -105,6 +106,19 @@ func GetUsrInfo(username string, db *sql.DB) usr.User {
 	return usr.CreateUser(id, un, pass, fN, lN, accs)
 }
 
+//GetEmployeeInfo returns the Employee struct from DB
+func GetEmployeeInfo(usrname string, db *sql.DB) emp.Employee {
+	row := db.QueryRow("SELECT * FROM employees WHERE empid=$1", usrname)
+	var id string
+	var username string
+	var pass string
+	var fName string
+	var lName string
+	row.Scan(&id, &username, &pass, &fName, &lName)
+	return emp.CreateNewEmployee(id, username, pass, fName, lName)
+
+}
+
 //UpdateUserDB pushes the updated user and user's account information to the database
 func UpdateUserDB(db *sql.DB, a usr.User) {
 	accountsHolder := a.GetAccounts()
@@ -145,21 +159,4 @@ func CreateNewAccountEntry(usrid string, acctype string, bal float64, db *sql.DB
 	db.Exec("INSERT INTO users VALUES($1, $2, $3, $4)",
 		count, usrid, acctype, bal)
 
-}
-
-func UserSignIn(db *sql.DB) {
-
-	var uHolder string
-	var pHolder string
-	fmt.Println("Enter your username: ")
-	fmt.Scan(&uHolder)
-	fmt.Println("Enter your pasword: ")
-	fmt.Scan(&pHolder)
-	userHolder := GetUsrInfo(uHolder, db)
-	if userHolder.GetUsrPassword() == pHolder {
-		fmt.Println("Success, Welcome!")
-		UserMenu()
-	} else {
-		fmt.Println("Wrong username or password!")
-	}
 }

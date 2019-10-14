@@ -1,7 +1,5 @@
 package emp
 
-import "database/sql"
-
 //Employee structure holds the values needed to edit accounts
 type Employee struct {
 	empID       string
@@ -39,17 +37,4 @@ func (a *Employee) GetEmployeeFName() string {
 //GetEmployeeLName returns the employee LName
 func (a *Employee) GetEmployeeLName() string {
 	return a.empLName
-}
-
-//GetEmployeeInfo returns the Employee struct from DB
-func GetEmployeeInfo(usrname string, db *sql.DB) Employee {
-	row := db.QueryRow("SELECT * FROM employees WHERE empid=$1", usrname)
-	var id string
-	var username string
-	var pass string
-	var fName string
-	var lName string
-	row.Scan(&id, &username, &pass, &fName, &lName)
-	return CreateNewEmployee(id, username, pass, fName, lName)
-
 }
