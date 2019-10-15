@@ -5,7 +5,6 @@ import (
 	"fmt"
 
 	"github.com/artytheparty/project-0/bank"
-	"github.com/artytheparty/project-0/emp"
 	"github.com/artytheparty/project-0/usr"
 )
 
@@ -86,7 +85,6 @@ func UserMenu(a usr.User, db *sql.DB) {
 
 //EmployeeSignIn wll show the option fo employees
 func EmployeeSignIn(db *sql.DB) {
-
 	var uHolder string
 	var pHolder string
 	fmt.Println("Enter your username: ")
@@ -96,7 +94,7 @@ func EmployeeSignIn(db *sql.DB) {
 	employeeHolder := bank.GetEmployeeInfo(uHolder, db)
 	if employeeHolder.GetEmployeePass() == pHolder {
 		fmt.Println("Success, Welcome!")
-		EmployeeMenu(bank.GetEmployeeInfo(uHolder, db), db)
+		EmployeeMenu(db)
 	} else {
 		fmt.Println("Wrong username or password!")
 		Menu(db)
@@ -105,6 +103,6 @@ func EmployeeSignIn(db *sql.DB) {
 }
 
 //EmployeeMenu Will print out the menu for employees
-func EmployeeMenu(a emp.Employee, db *sql.DB) {
+func EmployeeMenu(db *sql.DB) {
 	fmt.Println("1) View Pending Accounts")
 }
