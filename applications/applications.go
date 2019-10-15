@@ -8,6 +8,8 @@ import (
 	"os"
 	"strconv"
 	"strings"
+
+	"github.com/artytheparty/project-0/bank"
 )
 
 //AccountHolder will hold the necessary information to create an accoun after it is approved
@@ -112,6 +114,29 @@ func AskNewAccount(db *sql.DB) AccountHolder {
 }
 
 //ApproveAndAddToDB willl ad a selected account to the db
-func ApproveAndAddToDB(db *sql.DB) {
-
+func ApproveAndAddToDB(db *sql.DB, a []AccountHolder) {
+	fmt.Println("Which account would you like to add/remove?")
+	PrintHolder(a)
+	fmt.Println("Enter temporary account number: ")
+	var choice int
+	fmt.Scan(&choice)
+	fmt.Println("[r]emove? or [a]pprove]: ?")
+	var choice2 string
+	fmt.Println(&choice2)
+	holder := a[choice]
+	if choice2 == "a" {
+		bank.CreateNewUserEntry(holder.username, holder.password, holder.fname, holder.lname, db)
+		usrholder := bank.GetUsrInfo(holder.username, db)
+		bank.CreateNewAccountEntry(usrholder.GetUsrID(), holder.types, holder.bal, db)
+	}
+	if choice2 == "r" {
+		b := remove(a, choice)
+		WriteToFile(b)
+	} else {
+		fmt.Println("try again")
+	}
+}
+func remove(s []AccountHolder, i int) []AccountHolder {
+	s[len(s)-1], s[i] = s[i], s[len(s)-1]
+	return s[:len(s)-1]
 }

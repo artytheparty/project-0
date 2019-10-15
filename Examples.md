@@ -3,11 +3,12 @@ Use one of the following project ideas and their base requirements for your own.
 
 ## Example: The Banking App
 - [] Customers should be able to:
-    - [] Register with a username and password
-    - [] Authenticate (login) with that usename and password
-    - [] Apply to open an account
+    - [x] Register with a username and password
+    - [x] Authenticate (login) with that usename and password
+    - [x] Apply to open an account
     - [] Apply for joint accounts with other customers(oof can my db handle this? maybe do another table to relate two users to a single acconunt defiantly wont be in normal form. Sad db took me years)
-    - [] Withdraw, deposit, and transfer funds between accounts
+    - [x] Withdraw, deposit, and 
+    - []  transfer funds between accounts
 - [] Employees should be able to:
     - [x] View customer information
     - [] Approve/deny open applications for accounts

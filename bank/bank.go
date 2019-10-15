@@ -69,7 +69,7 @@ func Withdraw(a usr.User, dAmt float64, db *sql.DB) usr.User {
 		var choice int
 		_, err := fmt.Scan(&choice)
 		if err != nil {
-			panic(fmt.Errorf("Cant take out more than you have", Withdraw(a, dAmt, db)))
+			panic(err)
 		}
 		modifiedAcc := accHolder[choice].Withdraw(dAmt)
 		accHolder2 := acc.UpdateAccountSlice(accHolder, modifiedAcc, choice)

@@ -4,7 +4,6 @@ import (
 	"database/sql"
 	"fmt"
 
-	"github.com/artytheparty/project-0/applications"
 	"github.com/artytheparty/project-0/ui"
 	"github.com/artytheparty/project-0/usr"
 	_ "github.com/lib/pq"
@@ -40,7 +39,7 @@ checkout requirements and eexamples for comments and maybe more ideas
 */
 
 func main() {
-	var unapprovedAccounts []applications.AccountHolder
+
 	//opening conncetion to the database
 	connecDB := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=disable",
 		host, port, user, password, dbname)

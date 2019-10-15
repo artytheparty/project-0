@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"fmt"
 
+	"github.com/artytheparty/project-0/applications"
 	"github.com/artytheparty/project-0/bank"
 	"github.com/artytheparty/project-0/usr"
 )
@@ -36,6 +37,7 @@ func Menu(db *sql.DB) {
 	case "2":
 		EmployeeSignIn(db)
 	case "3":
+		applications.AskNewAccount(db)
 
 	}
 }
@@ -65,6 +67,7 @@ func UserMenu(a usr.User, db *sql.DB) {
 	var choice string
 	fmt.Println("1) Deposit money into account")
 	fmt.Println("2) Withdraw money from account")
+	fmt.Println("3) Back to Main Menu")
 	//fmt.Println("3) Transfer money to another account(must know the acount number)")
 	fmt.Scan(&choice)
 	switch choice {
@@ -80,6 +83,10 @@ func UserMenu(a usr.User, db *sql.DB) {
 		fmt.Scan(&amount)
 		bank.Withdraw(a, amount, db)
 		fmt.Print("Withdraw Successful!")
+	case "3":
+		Menu(db)
+	default:
+		UserMenu(a, db)
 	}
 }
 
@@ -104,5 +111,22 @@ func EmployeeSignIn(db *sql.DB) {
 
 //EmployeeMenu Will print out the menu for employees
 func EmployeeMenu(db *sql.DB) {
+	var unapprovedAccounts []applications.AccountHolder
+	unapprovedAccounts = applications.ReadFile()
+	var choice string
 	fmt.Println("1) View Pending Accounts")
+	fmt.Println("2) Approve Pending Accounts")
+	fmt.Println("2) Approve Pending Accounts")
+	fmt.Scan(&choice)
+	switch choice {
+	case "1":
+		applications.PrintHolder(unapprovedAccounts)
+	case "2":
+		applications.ApproveAndAddToDB(db, unapprovedAccounts)
+	case "3":
+		Menu(db)
+	default:
+		EmployeeMenu(db)
+	}
+
 }
