@@ -65,5 +65,3 @@ func main() {
 	ui.Menu(dataB)
 
 }
-
-//Menu

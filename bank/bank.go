@@ -3,6 +3,7 @@ package bank
 import (
 	"database/sql"
 	"fmt"
+	"strconv"
 
 	"github.com/artytheparty/project-0/acc"
 	"github.com/artytheparty/project-0/emp"
@@ -155,8 +156,10 @@ func CreateNewUserEntry(username string, password string, fname string, lname st
 	for rows.Next() {
 		rows.Scan(&count)
 	}
+	count++
+	countTransfer := strconv.Itoa(count)
 	db.Exec("INSERT INTO users VALUES($1, $2, $3, $4, $5)",
-		count, username, password, fname, lname)
+		countTransfer, username, password, fname, lname)
 
 }
 
@@ -167,7 +170,9 @@ func CreateNewAccountEntry(usrid string, acctype string, bal float64, db *sql.DB
 	for rows.Next() {
 		rows.Scan(&count)
 	}
-	db.Exec("INSERT INTO users VALUES($1, $2, $3, $4)",
-		count, usrid, acctype, bal)
+	count++
+	countTransfer := strconv.Itoa(count)
+	db.Exec("INSERT INTO accounts VALUES($1, $2, $3, $4)",
+		countTransfer, usrid, acctype, bal)
 
 }

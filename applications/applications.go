@@ -31,8 +31,14 @@ func (a *AccountHolder) AccountHolderInfo() {
 
 //AccountHolderInfo2 will just return the accountinfo as a string.
 func (a *AccountHolder) AccountHolderInfo2() string {
-	var balance string = fmt.Sprintf("%f", a.bal)
-	return ("USERNAME: " + a.username + " PASSWORD: " + a.password + " FNAME: " + a.fname + " LNAME: " + a.lname + " TYPE: " + a.types + " BALANCE: " + balance)
+	//var balance string = fmt.Sprintf("%f", a.bal)
+	return ("USERNAME: " + a.username +
+		" PASSWORD: " + a.password +
+		" FNAME: " + a.fname +
+		" LNAME: " + a.lname +
+		" TYPE: " + a.types +
+		" BALANCE: " + strconv.FormatFloat(a.bal, 'f', 2, 64) +
+		"\n")
 }
 
 //WriteToFile will write the array of accounts to a txt file
@@ -50,7 +56,7 @@ func WriteToFile(c []AccountHolder) {
 
 //ReadFile will read the accounts.txt file so that we can recreate the list for the employee
 func ReadFile() []AccountHolder {
-	holder := make([]AccountHolder, 5)
+	var holder []AccountHolder
 	f, err := os.Open("accounts.txt")
 	defer f.Close()
 	if err != nil {
@@ -60,7 +66,7 @@ func ReadFile() []AccountHolder {
 	var txtline string
 	for {
 		txtline, err = scanner.ReadString('\n')
-		fmt.Println(txtline)
+		//fmt.Println(txtline)
 
 		if err != nil {
 			break
@@ -71,7 +77,7 @@ func ReadFile() []AccountHolder {
 		lname := txtline[strings.Index(txtline, "LNAME: ")+6 : strings.Index(txtline, "TYPE: ")]
 		types := txtline[strings.Index(txtline, "TYPE: ")+5 : strings.Index(txtline, "BALANCE: ")]
 		aBal, _ := strconv.ParseFloat(txtline[strings.Index(txtline, "BALANCE: ")+8:len(txtline)-1], 64)
-		//fmt.Println(uname, pass, lname, fname, aNum, aBal)
+		//1fmt.Println(aBal)
 		holder = append(holder, CreateAccountHolder(uname, pass, fname, lname, types, aBal))
 	}
 	if err != io.EOF {
@@ -128,12 +134,14 @@ func ApproveAndAddToDB(db *sql.DB, a []AccountHolder) {
 		bank.CreateNewUserEntry(holder.username, holder.password, holder.fname, holder.lname, db)
 		usrholder := bank.GetUsrInfo(holder.username, db)
 		bank.CreateNewAccountEntry(usrholder.GetUsrID(), holder.types, holder.bal, db)
+		b := remove(a, choice)
+		WriteToFile(b)
+		fmt.Println("Successfully added the user and their account to Database")
 	}
 	if choice2 == "r" {
 		b := remove(a, choice)
 		WriteToFile(b)
-	} else {
-		fmt.Println("try again")
+		fmt.Println("Successfully removed Pending Account from file.")
 	}
 }
 func remove(s []AccountHolder, i int) []AccountHolder {
