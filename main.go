@@ -63,5 +63,5 @@ func main() {
 	fmt.Println(" FRIENDSHIP    RELIABILITY     EXPERIENCE        DRIVE      ")
 
 	ui.Menu(dataB)
-
+	//ui.EmployeeMenu(dataB)
 }

@@ -76,7 +76,7 @@ func ReadFile() []AccountHolder {
 		fname := txtline[strings.Index(txtline, "FNAME: ")+6 : strings.Index(txtline, "LNAME: ")]
 		lname := txtline[strings.Index(txtline, "LNAME: ")+6 : strings.Index(txtline, "TYPE: ")]
 		types := txtline[strings.Index(txtline, "TYPE: ")+5 : strings.Index(txtline, "BALANCE: ")]
-		aBal, _ := strconv.ParseFloat(txtline[strings.Index(txtline, "BALANCE: ")+8:len(txtline)-1], 64)
+		aBal, _ := strconv.ParseFloat(txtline[strings.Index(txtline, "BALANCE: ")+9:len(txtline)-1], 64)
 		//1fmt.Println(aBal)
 		holder = append(holder, CreateAccountHolder(uname, pass, fname, lname, types, aBal))
 	}
