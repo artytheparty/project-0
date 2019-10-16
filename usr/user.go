@@ -28,6 +28,7 @@ func (a *User) PrintAccounts() {
 		fmt.Println("Account Number: ", a.accounts[k].GetAccountNum())
 		fmt.Println("Account Type: ", a.accounts[k].GetAccountType())
 		fmt.Println("Account Balance: $", a.accounts[k].GetAccountBal())
+		fmt.Println("----------------------------------------")
 	}
 }
 

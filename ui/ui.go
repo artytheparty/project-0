@@ -25,7 +25,7 @@ func Menu(db *sql.DB) {
 		var pHolder string
 		fmt.Println("Enter your username: ")
 		fmt.Scan(&uHolder)
-		fmt.Println("Enter your pasword: ")
+		fmt.Println("Enter your password: ")
 		fmt.Scan(&pHolder)
 		userHolder := bank.GetUsrInfo(uHolder, db)
 		if userHolder.GetUsrPassword() == pHolder {
