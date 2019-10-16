@@ -1,6 +1,10 @@
 package usr
 
-import "github.com/artytheparty/project-0/acc"
+import (
+	"fmt"
+
+	"github.com/artytheparty/project-0/acc"
+)
 
 //User Structure
 type User struct {
@@ -16,6 +20,15 @@ func CreateUser(id string, username string, password string, fName string, lName
 //GetAccounts returns the array of user accounts.
 func (a *User) GetAccounts() []acc.Account {
 	return a.accounts
+}
+
+//PrintAccounts will print account infor
+func (a *User) PrintAccounts() {
+	for k := range a.accounts {
+		fmt.Println("Account Number: ", a.accounts[k].GetAccountNum())
+		fmt.Println("Account Type: ", a.accounts[k].GetAccountType())
+		fmt.Println("Account Balance: $", a.accounts[k].GetAccountBal())
+	}
 }
 
 //UpdateUserAccounts method updates the account with new updated account slice

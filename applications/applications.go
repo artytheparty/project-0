@@ -122,7 +122,7 @@ func ApproveAndAddToDB(db *sql.DB, a []AccountHolder) {
 	fmt.Scan(&choice)
 	fmt.Println("[r]emove? or [a]pprove]: ?")
 	var choice2 string
-	fmt.Println(&choice2)
+	fmt.Scan(&choice2)
 	holder := a[choice]
 	if choice2 == "a" {
 		bank.CreateNewUserEntry(holder.username, holder.password, holder.fname, holder.lname, db)

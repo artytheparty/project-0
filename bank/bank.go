@@ -53,12 +53,23 @@ func Deposit(a usr.User, dAmt float64, db *sql.DB) usr.User {
 	}
 }
 
+//PrintUserInfo will pring out te user information
+func PrintUserInfo(db *sql.DB, username string) {
+	user2 := GetUsrInfo(username, db)
+	fmt.Println("Username: ", user2.GetUsrUsername())
+	fmt.Println("Account Number: ", user2.GetUsrID())
+	fmt.Println("First Name: ", user2.GetUsrFName())
+	fmt.Println("Last Name: ", user2.GetUsrLName())
+	user2.PrintAccounts()
+}
+
 //Withdraw will withdraw money from a user's account
 func Withdraw(a usr.User, dAmt float64, db *sql.DB) usr.User {
 	defer RecoverError()
 	var accHolder []acc.Account = a.GetAccounts()
 	//get user information holders
 	if len(a.GetAccounts()) > 1 {
+		fmt.Println("Which account would you like to withdraw from?")
 		var i int = 0
 		for k := range accHolder {
 			fmt.Printf("Option: %d\n", i)
@@ -108,7 +119,7 @@ func GetUsrInfo(username string, db *sql.DB) usr.User {
 
 //GetEmployeeInfo returns the Employee struct from DB
 func GetEmployeeInfo(usrname string, db *sql.DB) emp.Employee {
-	row := db.QueryRow("SELECT * FROM employees WHERE empid=$1", usrname)
+	row := db.QueryRow("SELECT * FROM employees WHERE username=$1", usrname)
 	var id string
 	var username string
 	var pass string

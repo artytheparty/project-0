@@ -5,7 +5,6 @@ import (
 	"fmt"
 
 	"github.com/artytheparty/project-0/ui"
-	"github.com/artytheparty/project-0/usr"
 	_ "github.com/lib/pq"
 )
 
@@ -48,8 +47,22 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	var activeUser usr.User
-	ui.Menu()
+	fmt.Println("            WELCOME TO THE                                  ")
+	fmt.Println(" ▄▄▄▄▄▄▄▄▄▄▄  ▄▄▄▄▄▄▄▄▄▄▄     ▄▄▄▄▄▄▄▄▄▄▄     ▄▄▄▄▄▄▄▄▄▄    ")
+	fmt.Println("▐░░░░░░░░░░░▌▐░░░░░░░░░░░▌   ▐░░░░░░░░░░░▌   ▐░░░░░░░░░░▌   ")
+	fmt.Println("▐░█▀▀▀▀▀▀▀▀▀ ▐░█▀▀▀▀▀▀▀█░▌   ▐░█▀▀▀▀▀▀▀▀▀    ▐░█▀▀▀▀▀▀▀█░▌  ")
+	fmt.Println("▐░▌          ▐░▌       ▐░▌   ▐░▌             ▐░▌       ▐░▌  ")
+	fmt.Println("▐░█▄▄▄▄▄▄▄▄▄ ▐░█▄▄▄▄▄▄▄█░▌   ▐░█▄▄▄▄▄▄▄▄▄    ▐░▌       ▐░▌  ")
+	fmt.Println("▐░░░░░░░░░░░▌▐░░░░░░░░░░░▌   ▐░░░░░░░░░░░▌   ▐░▌       ▐░▌  ")
+	fmt.Println("▐░█▀▀▀▀▀▀▀▀▀ ▐░█▀▀▀▀█░█▀▀    ▐░█▀▀▀▀▀▀▀▀▀    ▐░▌       ▐░▌  ")
+	fmt.Println("▐░▌          ▐░▌     ▐░▌     ▐░▌             ▐░▌       ▐░▌  ")
+	fmt.Println("▐░▌ ▄        ▐░▌      ▐░▌  ▄ ▐░█▄▄▄▄▄▄▄▄▄  ▄ ▐░█▄▄▄▄▄▄▄█░▌▄ ")
+	fmt.Println("▐░▌▐░▌       ▐░▌       ▐░▌▐░▌▐░░░░░░░░░░░▌▐░▌▐░░░░░░░░░░▌▐░▌")
+	fmt.Println(" ▀  ▀         ▀         ▀  ▀  ▀▀▀▀▀▀▀▀▀▀▀  ▀  ▀▀▀▀▀▀▀▀▀▀  ▀ ")
+	fmt.Println("                          BANKING SYSTEM                    ")
+	fmt.Println(" FRIENDSHIP    RELIABILITY     EXPERIENCE        DRIVE      ")
+
+	ui.Menu(dataB)
 
 }
 
