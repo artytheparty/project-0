@@ -2,8 +2,10 @@ package main
 
 import (
 	"database/sql"
+	"flag"
 	"fmt"
 
+	"github.com/artytheparty/project-0/bank"
 	"github.com/artytheparty/project-0/ui"
 	_ "github.com/lib/pq"
 )
@@ -61,6 +63,21 @@ func main() {
 	fmt.Println(" ▀  ▀         ▀         ▀  ▀  ▀▀▀▀▀▀▀▀▀▀▀  ▀  ▀▀▀▀▀▀▀▀▀▀  ▀ ")
 	fmt.Println("                          BANKING SYSTEM                    ")
 	fmt.Println(" FRIENDSHIP    RELIABILITY     EXPERIENCE        DRIVE      ")
+
+	employeeSignin := flag.Bool("emp", false, "initializes employee sign in automatically")
+	employeeUsername := flag.String("u", "0", "holds Employee Username")
+	employeePassword := flag.String("p", "0", "holds Employee Username")
+	flag.Parse()
+	if *employeeSignin == true {
+		employeeHolder := bank.GetEmployeeInfo(*employeeUsername, dataB)
+		if employeeHolder.GetEmployeePass() == *employeePassword {
+			fmt.Println("Welcome Employee!")
+			ui.EmployeeMenu(dataB)
+		} else {
+			fmt.Println("Wrong username or password!")
+			ui.Menu(dataB)
+		}
+	}
 
 	ui.Menu(dataB)
 	//ui.EmployeeMenu(dataB)
