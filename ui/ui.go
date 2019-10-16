@@ -52,6 +52,8 @@ func Menu(db *sql.DB) {
 		}
 	case "3":
 		applications.AskNewAccount(db)
+		fmt.Println("Your Application has been submitted!")
+		Menu(db)
 	case "4":
 		os.Exit(0)
 	default:

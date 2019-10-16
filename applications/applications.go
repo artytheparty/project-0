@@ -24,10 +24,10 @@ func CreateAccountHolder(username string, pass string, fname string, lname strin
 }
 
 //AccountHolderInfo will just print the account.
-func (a *AccountHolder) AccountHolderInfo() {
-	fmt.Printf("USERNAME: %s PASSWORD: %s FNAME: %s LNAME: %s TYPE: %s BALANCE: %f\n",
-		a.username, a.password, a.fname, a.lname, a.types, a.bal)
-}
+// func (a *AccountHolder) AccountHolderInfo() {
+// 	fmt.Printf("USERNAME:%sPASSWORD:%sFNAME:%sLNAME:%sTYPE:%sBALANCE:%f\n",
+// 		a.username, a.password, a.fname, a.lname, a.types, a.bal)
+// }
 
 //AccountHolderInfo2 will just return the accountinfo as a string.
 func (a *AccountHolder) AccountHolderInfo2() string {
@@ -71,11 +71,11 @@ func ReadFile() []AccountHolder {
 		if err != nil {
 			break
 		}
-		uname := txtline[9:strings.Index(txtline, "PASSWORD: ")]
-		pass := txtline[strings.Index(txtline, "PASSWORD: ")+9 : strings.Index(txtline, "FNAME: ")]
-		fname := txtline[strings.Index(txtline, "FNAME: ")+6 : strings.Index(txtline, "LNAME: ")]
-		lname := txtline[strings.Index(txtline, "LNAME: ")+6 : strings.Index(txtline, "TYPE: ")]
-		types := txtline[strings.Index(txtline, "TYPE: ")+5 : strings.Index(txtline, "BALANCE: ")]
+		uname := txtline[10 : strings.Index(txtline, "PASSWORD: ")-1]
+		pass := txtline[strings.Index(txtline, "PASSWORD: ")+10 : strings.Index(txtline, "FNAME: ")-1]
+		fname := txtline[strings.Index(txtline, "FNAME: ")+7 : strings.Index(txtline, "LNAME: ")-1]
+		lname := txtline[strings.Index(txtline, "LNAME: ")+7 : strings.Index(txtline, "TYPE: ")-1]
+		types := txtline[strings.Index(txtline, "TYPE: ")+6 : strings.Index(txtline, "BALANCE: ")-1]
 		aBal, _ := strconv.ParseFloat(txtline[strings.Index(txtline, "BALANCE: ")+9:len(txtline)-1], 64)
 		//1fmt.Println(aBal)
 		holder = append(holder, CreateAccountHolder(uname, pass, fname, lname, types, aBal))
@@ -91,13 +91,14 @@ func ReadFile() []AccountHolder {
 func PrintHolder(a []AccountHolder) {
 	for i := range a {
 		fmt.Println("Temp. Acc Number", i)
-		a[i].AccountHolderInfo()
+		fmt.Println(a[i].AccountHolderInfo2())
 	}
 }
 
 //AskNewAccount will write the map of accounts whic have aplied to open one
-func AskNewAccount(db *sql.DB) AccountHolder {
-
+func AskNewAccount(db *sql.DB) {
+	var unapprovedAccounts []AccountHolder
+	unapprovedAccounts = ReadFile()
 	var username string
 	var pass string
 	var fname string
@@ -116,7 +117,8 @@ func AskNewAccount(db *sql.DB) AccountHolder {
 	fmt.Scan(&types)
 	fmt.Println("Enter your Initial deposit: ")
 	fmt.Scan(&bal)
-	return CreateAccountHolder(username, pass, fname, lname, types, bal)
+	unapprovedAccounts = append(unapprovedAccounts, CreateAccountHolder(username, pass, fname, lname, types, bal))
+	WriteToFile(unapprovedAccounts)
 }
 
 //ApproveAndAddToDB willl ad a selected account to the db
