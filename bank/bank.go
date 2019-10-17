@@ -21,9 +21,8 @@ func RecoverError() {
 	}
 }
 
-//Deposit deposits amount into selected account if many
+//Deposit deposits passed in amount into selected account | will prompt user to select an accout if the user holds multiple accounts
 func Deposit(a usr.User, dAmt float64, db *sql.DB) usr.User {
-
 	var accHolder []acc.Account = a.GetAccounts()
 	//get user information holders
 	if len(a.GetAccounts()) > 1 {
@@ -43,7 +42,6 @@ func Deposit(a usr.User, dAmt float64, db *sql.DB) usr.User {
 		accHolder2 := acc.UpdateAccountSlice(accHolder, modifiedAcc, choice)
 		updtUser := usr.UpdateUserAccounts(a, accHolder2)
 		return updtUser
-
 	} else {
 		modifiedAcc := accHolder[0].Withdraw(dAmt)
 		accHolder2 := acc.UpdateAccountSlice(accHolder, modifiedAcc, 0)
@@ -52,7 +50,7 @@ func Deposit(a usr.User, dAmt float64, db *sql.DB) usr.User {
 	}
 }
 
-//PrintUserInfo will pring out te user information
+//PrintUserInfo will pring out the user information to screen
 func PrintUserInfo(db *sql.DB, username string) {
 	user2 := GetUsrInfo(username, db)
 	fmt.Println("----------------------------------")
@@ -96,7 +94,7 @@ func Withdraw(a usr.User, dAmt float64, db *sql.DB) usr.User {
 	}
 }
 
-//GetUsrInfo bjhi
+//GetUsrInfo accesses the Database to retrieve the User so that we are able to modify it.
 func GetUsrInfo(username string, db *sql.DB) usr.User {
 	//user variabales
 	var accs []acc.Account
@@ -128,7 +126,6 @@ func GetEmployeeInfo(usrname string, db *sql.DB) emp.Employee {
 	var lName string
 	row.Scan(&id, &username, &pass, &fName, &lName)
 	return emp.CreateNewEmployee(id, username, pass, fName, lName)
-
 }
 
 //UpdateUserDB pushes the updated user and user's account information to the database
@@ -149,7 +146,7 @@ func UpdateUserDB(db *sql.DB, a usr.User) {
 
 }
 
-//CreateNewUserEntry creates a new useentry in the database
+//CreateNewUserEntry creates a new user entry in the database
 func CreateNewUserEntry(username string, password string, fname string, lname string, db *sql.DB) {
 	var count []int
 	var counthold string
@@ -169,7 +166,6 @@ func CreateNewUserEntry(username string, password string, fname string, lname st
 	countTransfer := strconv.Itoa(maxNum)
 	db.Exec("INSERT INTO users VALUES($1, $2, $3, $4, $5)",
 		countTransfer, username, password, fname, lname)
-
 }
 
 //CreateNewAccountEntry creates a new account in the database

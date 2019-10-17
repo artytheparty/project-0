@@ -12,7 +12,7 @@ type User struct {
 	accounts                             []acc.Account
 }
 
-//CreateUser fdsfds
+//CreateUser constructor for the User struct
 func CreateUser(id string, username string, password string, fName string, lName string, accounts []acc.Account) User {
 	return User{id, username, password, fName, lName, accounts}
 }
@@ -22,7 +22,7 @@ func (a *User) GetAccounts() []acc.Account {
 	return a.accounts
 }
 
-//PrintAccounts will print account infor
+//PrintAccounts will print the associated accounts of the user the metho has been called on
 func (a *User) PrintAccounts() {
 	for k := range a.accounts {
 		fmt.Println("Account Number: ", a.accounts[k].GetAccountNum())

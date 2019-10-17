@@ -9,7 +9,7 @@ type Employee struct {
 	empLName    string
 }
 
-//CreateNewEmployee creates a new employee struct and returns it
+//CreateNewEmployee constructor for the Employee struct
 func CreateNewEmployee(id string, username string, pass string, fName string, lName string) Employee {
 	return Employee{id, username, pass, fName, lName}
 }
@@ -29,12 +29,12 @@ func (a *Employee) GetEmployeePass() string {
 	return a.empPass
 }
 
-//GetEmployeeFName returns the employee FName
+//GetEmployeeFName returns the employee First Name
 func (a *Employee) GetEmployeeFName() string {
 	return a.empFName
 }
 
-//GetEmployeeLName returns the employee LName
+//GetEmployeeLName returns the employee Last Name
 func (a *Employee) GetEmployeeLName() string {
 	return a.empLName
 }

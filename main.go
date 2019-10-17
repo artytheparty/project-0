@@ -67,6 +67,7 @@ func main() {
 	employeeSignin := flag.Bool("emp", false, "initializes employee sign in automatically")
 	employeeUsername := flag.String("u", "0", "holds Employee Username")
 	employeePassword := flag.String("p", "0", "holds Employee Username")
+	//Employees can skip regular promt and skip straight to sign in from the  terminal
 	flag.Parse()
 	if *employeeSignin == true {
 		employeeHolder := bank.GetEmployeeInfo(*employeeUsername, dataB)

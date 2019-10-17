@@ -18,18 +18,12 @@ type AccountHolder struct {
 	bal                                     float64
 }
 
-//CreateAccountHolder will create the account holder
+//CreateAccountHolder is a constructor for the AccountHolder struct
 func CreateAccountHolder(username string, pass string, fname string, lname string, types string, bal float64) AccountHolder {
 	return AccountHolder{username, pass, fname, lname, types, bal}
 }
 
-//AccountHolderInfo will just print the account.
-// func (a *AccountHolder) AccountHolderInfo() {
-// 	fmt.Printf("USERNAME:%sPASSWORD:%sFNAME:%sLNAME:%sTYPE:%sBALANCE:%f\n",
-// 		a.username, a.password, a.fname, a.lname, a.types, a.bal)
-// }
-
-//AccountHolderInfo2 will just return the accountinfo as a string.
+//AccountHolderInfo2 will just return the Account Information as a string.
 func (a *AccountHolder) AccountHolderInfo2() string {
 	//var balance string = fmt.Sprintf("%f", a.bal)
 	return ("USERNAME: " + a.username +
@@ -41,7 +35,7 @@ func (a *AccountHolder) AccountHolderInfo2() string {
 		"\n")
 }
 
-//WriteToFile will write the array of accounts to a txt file
+//WriteToFile writes the Array of AccountHolder{s} to accounts.txt so that it can be loadedin later for employee review
 func WriteToFile(c []AccountHolder) {
 	f, err := os.Create("accounts.txt")
 	if err != nil {
@@ -54,7 +48,7 @@ func WriteToFile(c []AccountHolder) {
 	err = f.Close()
 }
 
-//ReadFile will read the accounts.txt file so that we can recreate the list for the employee
+//ReadFile will read the accounts.txt file so that we can recreate the slice of AccountHolder{s} for the employee
 func ReadFile() []AccountHolder {
 	var holder []AccountHolder
 	f, err := os.Open("accounts.txt")
@@ -66,8 +60,6 @@ func ReadFile() []AccountHolder {
 	var txtline string
 	for {
 		txtline, err = scanner.ReadString('\n')
-		//fmt.Println(txtline)
-
 		if err != nil {
 			break
 		}
@@ -77,17 +69,15 @@ func ReadFile() []AccountHolder {
 		lname := txtline[strings.Index(txtline, "LNAME: ")+7 : strings.Index(txtline, "TYPE: ")-1]
 		types := txtline[strings.Index(txtline, "TYPE: ")+6 : strings.Index(txtline, "BALANCE: ")-1]
 		aBal, _ := strconv.ParseFloat(txtline[strings.Index(txtline, "BALANCE: ")+9:len(txtline)-1], 64)
-		//1fmt.Println(aBal)
 		holder = append(holder, CreateAccountHolder(uname, pass, fname, lname, types, aBal))
 	}
 	if err != io.EOF {
 		fmt.Printf("failed: %v\n", err)
 	}
 	return holder
-
 }
 
-//PrintHolder will just print out the list of acconts
+//PrintHolder prints the AccountHolder Slice | use case for showing accounts to employee for approval/denial
 func PrintHolder(a []AccountHolder) {
 	for i := range a {
 		fmt.Println("Temp. Acc Number", i)
@@ -95,7 +85,7 @@ func PrintHolder(a []AccountHolder) {
 	}
 }
 
-//AskNewAccount will write the map of accounts whic have aplied to open one
+//AskNewAccount collects necessary information from a potential new user when applying for a new account
 func AskNewAccount(db *sql.DB) {
 	var unapprovedAccounts []AccountHolder
 	unapprovedAccounts = ReadFile()
@@ -141,7 +131,7 @@ func AskNewAccount(db *sql.DB) {
 
 }
 
-//ApproveAndAddToDB willl ad a selected account to the db
+//ApproveAndAddToDB willl add a selected accountholder to the user and accounts table in the database
 func ApproveAndAddToDB(db *sql.DB, a []AccountHolder) {
 	fmt.Println("Which account would you like to add/remove?")
 	PrintHolder(a)
@@ -166,6 +156,8 @@ func ApproveAndAddToDB(db *sql.DB, a []AccountHolder) {
 		fmt.Println("Successfully removed Pending Account from file.")
 	}
 }
+
+//remove will remove the accountHolder from a slice which has been either approved by the employee or removed
 func remove(s []AccountHolder, i int) []AccountHolder {
 	s[len(s)-1], s[i] = s[i], s[len(s)-1]
 	return s[:len(s)-1]

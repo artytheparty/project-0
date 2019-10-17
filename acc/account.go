@@ -12,25 +12,25 @@ type Account struct {
 	accBal  float64
 }
 
-//CreateAccount fnskfnsod
+//CreateAccount Simple Constructor which will return a new Account
 func CreateAccount(aN string, aID string, typ string, initialDeposit float64) Account {
 	return Account{aN, aID, typ, initialDeposit}
 }
 
-//AccountInfo prints out the account info
+//AccountInfo Prints Account information straight to console | use case in printing the informatio on the screen for the user to view
 func (a *Account) AccountInfo() {
 	fmt.Printf("Acc. Number: %s User Associated ID: %s Acc. Type: %s Balance: %f\n",
 		a.accNum, a.usrID, a.accType, a.accBal)
 }
 
-//Deposit works i hope
+//Deposit deposits passed amount of money into the account the method has benn called on.
 func (a *Account) Deposit(val float64) Account {
 	var updatedBal float64
 	updatedBal = a.accBal + val
 	return Account{a.accNum, a.usrID, a.accType, updatedBal}
 }
 
-//Withdraw Withdraws money from account
+//Withdraw Withdraws the passed amount from the account the function is called on.
 func (a *Account) Withdraw(val float64) Account {
 	var updatedBal float64
 	if a.accBal >= val {
@@ -42,7 +42,7 @@ func (a *Account) Withdraw(val float64) Account {
 	return Account{a.accNum, a.usrID, a.accType, updatedBal}
 }
 
-//UpdateAccountSlice updates old account with new account in the specified position
+//UpdateAccountSlice Updates the Account slice with the latest information assosiated with a user
 func UpdateAccountSlice(ac []Account, a Account, pos int) []Account {
 	holder := ac
 	holder[pos] = a
