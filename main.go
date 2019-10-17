@@ -2,14 +2,15 @@ package main
 
 import (
 	"database/sql"
-	_ "database/sql"
+	"flag"
 	"fmt"
 
-	_ "github.com/artytheparty/project-0/acc"
-	_ "github.com/artytheparty/project-0/dbhandling"
+	"github.com/artytheparty/project-0/bank"
+	"github.com/artytheparty/project-0/ui"
 	_ "github.com/lib/pq"
 )
 
+//database constants
 const (
 	host     = "localhost"
 	port     = 5432
@@ -18,56 +19,66 @@ const (
 	dbname   = "postgres"
 )
 
-func main() {
-	// fmt.Println("Welcome to the Banking App")
-	// admin := acc.CreateAccount("kjonah", "password", "Kyle", "Johna", 1, 5000)
-	// admin2 := acc.CreateAccount("jjohna", "password", "John", "Johna", 2, 15000)
-	// admin3 := acc.CreateAccount("ukra", "password", "Ursula", "Kung", 3, 5000)
-	// admin4 := acc.CreateAccount("shword", "password", "Shelly", "Wordinson", 4, 5000)
-	// admin5 := acc.CreateAccount("uthough", "password", "Umelia", "Thoughtful", 5, 5000)
-	// admin6 := acc.CreateAccount("kps13", "password", "Kong", "Pierce", 6, 5000)
-	// admin7 := acc.CreateAccount("bhide", "password", "Robert", "Hide", 7, 5000)
-	// admin8 := acc.CreateAccount("dlecious", "password", "David", "Lecious", 8, 5000)
-	// admin9 := acc.CreateAccount("hparker", "password", "Hong", "Parker", 9, 5000)
-	// admin10 := acc.CreateAccount("golang", "password", "Godin", "Lang", 10, 5000)
+/*
+tmm test functions
+error handling make sure program runs even if there is an error
+flags try to include them
+create user id port the file handling to be able to save unapproved accounts and users
+to implement finding whic id to use just  use this sql query
+also create accounts for approval
+Example
+	SELECT COUNT(ProductID)
+	FROM Products;
 
-	//fmt.Println(admin.Info())
-	// accounts := make(map[int]acc.AccountHolder)
-	// accounts[1] = admin
-	// accounts[2] = admin2
-	// accounts[3] = admin3
-	// accounts[4] = admin4
-	// accounts[5] = admin5
-	// accounts[6] = admin6
-	// accounts[7] = admin7
-	// accounts[8] = admin8
-	// accounts[9] = admin9
-	// accounts[10] = admin10
-	//initializing accounts list
-	//dbhandling.WriteToFile(accounts)
-	// accounts2 := dbhandling.ReadFile()
-	// for k := range accounts2 {
-	// 	accounts2[k].Info()
-	// }
-	datasource := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=disable",
+check out how log works and you can proabbly just return out of errors and continue the runnnin of your program.
+research
+create function to transfer funds between accounts probably be able to reuse the withdraw and deposit.
+added things to examples
+if there is time add http functionality
+employee pkg not used as of now will be used at UI
+checkout requirements and eexamples for comments and maybe more ideas
+*/
+
+func main() {
+
+	//opening conncetion to the database
+	connecDB := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=disable",
 		host, port, user, password, dbname)
-	db, err := sql.Open("postgres", datasource)
-	defer db.Close()
+	dataB, err := sql.Open("postgres", connecDB)
+	defer dataB.Close()
 	if err != nil {
 		panic(err)
 	}
-	getAll(db)
-}
-func getAll(db *sql.DB) {
-	rows, _ := db.Query("SELECT * FROM CUSTOMERS")
-	for rows.Next() {
-		var username string
-		var pass string
-		var fName string
-		var lName string
-		var aNum string
-		var accBal float64
-		rows.Scan(&username, &pass, &fName, &lName, &aNum, &accBal)
-		fmt.Println(username, pass, fName, lName, aNum, accBal)
+	fmt.Println("            WELCOME TO THE                                  ")
+	fmt.Println(" ▄▄▄▄▄▄▄▄▄▄▄  ▄▄▄▄▄▄▄▄▄▄▄     ▄▄▄▄▄▄▄▄▄▄▄     ▄▄▄▄▄▄▄▄▄▄    ")
+	fmt.Println("▐░░░░░░░░░░░▌▐░░░░░░░░░░░▌   ▐░░░░░░░░░░░▌   ▐░░░░░░░░░░▌   ")
+	fmt.Println("▐░█▀▀▀▀▀▀▀▀▀ ▐░█▀▀▀▀▀▀▀█░▌   ▐░█▀▀▀▀▀▀▀▀▀    ▐░█▀▀▀▀▀▀▀█░▌  ")
+	fmt.Println("▐░▌          ▐░▌       ▐░▌   ▐░▌             ▐░▌       ▐░▌  ")
+	fmt.Println("▐░█▄▄▄▄▄▄▄▄▄ ▐░█▄▄▄▄▄▄▄█░▌   ▐░█▄▄▄▄▄▄▄▄▄    ▐░▌       ▐░▌  ")
+	fmt.Println("▐░░░░░░░░░░░▌▐░░░░░░░░░░░▌   ▐░░░░░░░░░░░▌   ▐░▌       ▐░▌  ")
+	fmt.Println("▐░█▀▀▀▀▀▀▀▀▀ ▐░█▀▀▀▀█░█▀▀    ▐░█▀▀▀▀▀▀▀▀▀    ▐░▌       ▐░▌  ")
+	fmt.Println("▐░▌          ▐░▌     ▐░▌     ▐░▌             ▐░▌       ▐░▌  ")
+	fmt.Println("▐░▌ ▄        ▐░▌      ▐░▌  ▄ ▐░█▄▄▄▄▄▄▄▄▄  ▄ ▐░█▄▄▄▄▄▄▄█░▌▄ ")
+	fmt.Println("▐░▌▐░▌       ▐░▌       ▐░▌▐░▌▐░░░░░░░░░░░▌▐░▌▐░░░░░░░░░░▌▐░▌")
+	fmt.Println(" ▀  ▀         ▀         ▀  ▀  ▀▀▀▀▀▀▀▀▀▀▀  ▀  ▀▀▀▀▀▀▀▀▀▀  ▀ ")
+	fmt.Println("                          BANKING SYSTEM                    ")
+	fmt.Println(" FRIENDSHIP    RELIABILITY     EXPERIENCE        DRIVE      ")
+
+	employeeSignin := flag.Bool("emp", false, "initializes employee sign in automatically")
+	employeeUsername := flag.String("u", "0", "holds Employee Username")
+	employeePassword := flag.String("p", "0", "holds Employee Username")
+	flag.Parse()
+	if *employeeSignin == true {
+		employeeHolder := bank.GetEmployeeInfo(*employeeUsername, dataB)
+		if employeeHolder.GetEmployeePass() == *employeePassword {
+			fmt.Println("Welcome Employee!")
+			ui.EmployeeMenu(dataB)
+		} else {
+			fmt.Println("Wrong username or password!")
+			ui.Menu(dataB)
+		}
 	}
+
+	ui.Menu(dataB)
+	//ui.EmployeeMenu(dataB)
 }

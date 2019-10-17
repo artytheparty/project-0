@@ -10,6 +10,8 @@
 *.so
 *.dylib
 *.code-workspace
+*.pgsql
+*.VSCodeCounter
 
 # Test binary, built with `go test -c`
 *.test
