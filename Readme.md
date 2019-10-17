@@ -1,12 +1,15 @@
 # Insert Project Name Here
+Welcome to the F.R.E.D. Banking System
+(Friendship,Reliability,Experince,Drive)
 ## Insert Name Here
-Insert project description here.
+Banking Application with Database persistance
 
 # User Stories
-- [x] List
-- [] Each
-- [] User
-- [] Story
+- [x] Checkout Requirements.md for more!
+- [x] Checkout Examples.md for more!
+- [] open accounts for approved users
+
 
 # Instructions
-Insert environment, build, and execution documentation here.
+`go run main.go` in the directory where file is located or cloned directory
+That's it!
