@@ -18,7 +18,7 @@ func Menu(db *sql.DB) {
 	fmt.Println("2) Employee LogIn")
 	fmt.Println("3) Apply for an account")
 	fmt.Println("4) Exit")
-	fmt.Print("Make a choice: ")
+	fmt.Println("Make a choice: ")
 	fmt.Scan(&choice)
 	switch choice {
 	case "1":
@@ -58,7 +58,7 @@ func Menu(db *sql.DB) {
 	case "4":
 		os.Exit(0)
 	default:
-		fmt.Println("Not a Choice")
+		Menu(db)
 	}
 }
 
