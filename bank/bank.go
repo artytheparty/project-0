@@ -43,7 +43,7 @@ func Deposit(a usr.User, dAmt float64, db *sql.DB) usr.User {
 		updtUser := usr.UpdateUserAccounts(a, accHolder2)
 		return updtUser
 	} else {
-		modifiedAcc := accHolder[0].Withdraw(dAmt)
+		modifiedAcc := accHolder[0].Deposit(dAmt)
 		accHolder2 := acc.UpdateAccountSlice(accHolder, modifiedAcc, 0)
 		updtUser := usr.UpdateUserAccounts(a, accHolder2)
 		return updtUser

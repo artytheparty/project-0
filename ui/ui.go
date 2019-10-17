@@ -109,7 +109,8 @@ func EmployeeMenu(db *sql.DB) {
 	fmt.Println("\n*** Employee Menu ***")
 	fmt.Println("1) View Pending Accounts")
 	fmt.Println("2) Approve Pending Accounts")
-	fmt.Println("3) Exit")
+	fmt.Println("3) Back to Main Menu")
+	fmt.Println("Please make a selection")
 	fmt.Scan(&choice)
 	switch choice {
 	case "1":
