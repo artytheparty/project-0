@@ -54,8 +54,8 @@ func Deposit(a usr.User, dAmt float64, db *sql.DB) usr.User {
 func PrintUserInfo(db *sql.DB, username string) {
 	user2 := GetUsrInfo(username, db)
 	fmt.Println("----------------------------------")
+	fmt.Println("User Account Number: ", user2.GetUsrID())
 	fmt.Println("Username: ", user2.GetUsrUsername())
-	fmt.Println("Account Number: ", user2.GetUsrID())
 	fmt.Println("First Name: ", user2.GetUsrFName())
 	fmt.Println("Last Name: ", user2.GetUsrLName())
 	fmt.Println("----------------------------------")
