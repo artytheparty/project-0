@@ -45,3 +45,35 @@ func TestUpdateAccountSlice(t *testing.T) {
 		fmt.Println("Error happened")
 	}
 }
+func TestGetAccountNum(t *testing.T) {
+	hold := CreateAccount("2", "1", "s", 243.50)
+	if hold.GetAccountNum() == "2" {
+		println("Success")
+	} else {
+		fmt.Println("Error happened")
+	}
+}
+func TestGetUsrID(t *testing.T) {
+	hold := CreateAccount("2", "1", "s", 243.50)
+	if hold.GetUsrID() == "1" {
+		println("Success")
+	} else {
+		fmt.Println("Error happened")
+	}
+}
+func TestGetAccountType(t *testing.T) {
+	hold := CreateAccount("2", "1", "s", 243.50)
+	if hold.GetAccountType() == "s" {
+		println("Success")
+	} else {
+		fmt.Println("Error happened")
+	}
+}
+func TestGetAccountBal(t *testing.T) {
+	hold := CreateAccount("2", "1", "s", 243.50)
+	if hold.GetAccountBal() == 243.50 {
+		println("Success")
+	} else {
+		fmt.Println("Error happened")
+	}
+}

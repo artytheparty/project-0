@@ -107,18 +107,38 @@ func AskNewAccount(db *sql.DB) {
 	var types string
 	fmt.Println("Enter your username: ")
 	fmt.Scan(&username)
-	fmt.Println("Enter your password: ")
-	fmt.Scan(&pass)
-	fmt.Println("Enter your First Name: ")
-	fmt.Scan(&fname)
-	fmt.Println("Enter your Last Name: ")
-	fmt.Scan(&lname)
-	fmt.Println("Enter your Account type \"c\" for checking \"s\" for savings: ")
-	fmt.Scan(&types)
-	fmt.Println("Enter your Initial deposit: ")
-	fmt.Scan(&bal)
-	unapprovedAccounts = append(unapprovedAccounts, CreateAccountHolder(username, pass, fname, lname, types, bal))
-	WriteToFile(unapprovedAccounts)
+	var usernameHolder []string
+	rows, _ := db.Query("SELECT username FROM users")
+	for rows.Next() {
+		var uN string
+		rows.Scan(&uN)
+		usernameHolder = append(usernameHolder, uN)
+	}
+	var continu bool = true
+	for i := range usernameHolder {
+		if usernameHolder[i] == username {
+			continu = false
+			break
+		}
+	}
+	if continu {
+		fmt.Println("Enter your password: ")
+		fmt.Scan(&pass)
+		fmt.Println("Enter your First Name: ")
+		fmt.Scan(&fname)
+		fmt.Println("Enter your Last Name: ")
+		fmt.Scan(&lname)
+		fmt.Println("Enter your Account type \"c\" for checking \"s\" for savings: ")
+		fmt.Scan(&types)
+		fmt.Println("Enter your Initial deposit: ")
+		fmt.Scan(&bal)
+		unapprovedAccounts = append(unapprovedAccounts, CreateAccountHolder(username, pass, fname, lname, types, bal))
+		WriteToFile(unapprovedAccounts)
+	} else {
+		println("Please try again with a different username, entered Username has been taken!")
+		AskNewAccount(db)
+	}
+
 }
 
 //ApproveAndAddToDB willl ad a selected account to the db

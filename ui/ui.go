@@ -13,6 +13,7 @@ import (
 //Menu Displays the main menu
 func Menu(db *sql.DB) {
 	var choice string
+	fmt.Println("\n*** MAIN MENU ***")
 	fmt.Println("1) Customer LogIn")
 	fmt.Println("2) Employee LogIn")
 	fmt.Println("3) Apply for an account")
@@ -32,7 +33,7 @@ func Menu(db *sql.DB) {
 			fmt.Println("Success, Welcome!")
 			UserMenu(bank.GetUsrInfo(uHolder, db), db)
 		} else {
-			fmt.Println("Wrong username or password!")
+			fmt.Println("Wrong username or password! Try again!")
 			Menu(db)
 		}
 	case "2":
@@ -64,6 +65,7 @@ func Menu(db *sql.DB) {
 //UserMenu will display the menu forthe user
 func UserMenu(a usr.User, db *sql.DB) {
 	var choice string
+	fmt.Println("\n*** User Menu ***")
 	fmt.Println("1) Deposit money into account")
 	fmt.Println("2) Withdraw money from account")
 	fmt.Println("3) View Account Information")
@@ -104,6 +106,7 @@ func EmployeeMenu(db *sql.DB) {
 	var unapprovedAccounts []applications.AccountHolder
 	unapprovedAccounts = applications.ReadFile()
 	var choice string
+	fmt.Println("\n*** Employee Menu ***")
 	fmt.Println("1) View Pending Accounts")
 	fmt.Println("2) Approve Pending Accounts")
 	fmt.Println("3) Exit")

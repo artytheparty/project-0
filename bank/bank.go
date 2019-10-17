@@ -14,14 +14,12 @@ import (
 	_ "github.com/lib/pq"
 )
 
-//RecoverError recovers the program from the actual error
+//RecoverError recovers the program from an error and keeps the program running
 func RecoverError() {
 	if r := recover(); r != nil {
 		fmt.Println("Recovered from Error: ", r)
 	}
 }
-
-//both deposit and withdraw only edit the first account'
 
 //Deposit deposits amount into selected account if many
 func Deposit(a usr.User, dAmt float64, db *sql.DB) usr.User {
@@ -57,14 +55,16 @@ func Deposit(a usr.User, dAmt float64, db *sql.DB) usr.User {
 //PrintUserInfo will pring out te user information
 func PrintUserInfo(db *sql.DB, username string) {
 	user2 := GetUsrInfo(username, db)
+	fmt.Println("----------------------------------")
 	fmt.Println("Username: ", user2.GetUsrUsername())
 	fmt.Println("Account Number: ", user2.GetUsrID())
 	fmt.Println("First Name: ", user2.GetUsrFName())
 	fmt.Println("Last Name: ", user2.GetUsrLName())
+	fmt.Println("----------------------------------")
 	user2.PrintAccounts()
 }
 
-//Withdraw will withdraw money from a user's account
+//Withdraw will withdraw money from a user's account | if user has multiple accounts the user is given an option to select his account.
 func Withdraw(a usr.User, dAmt float64, db *sql.DB) usr.User {
 	defer RecoverError()
 	var accHolder []acc.Account = a.GetAccounts()
@@ -151,13 +151,22 @@ func UpdateUserDB(db *sql.DB, a usr.User) {
 
 //CreateNewUserEntry creates a new useentry in the database
 func CreateNewUserEntry(username string, password string, fname string, lname string, db *sql.DB) {
-	var count int
-	rows, _ := db.Query("SELECT COUNT(*) as count FROM users")
+	var count []int
+	var counthold string
+	rows, _ := db.Query("SELECT usrid FROM users")
 	for rows.Next() {
-		rows.Scan(&count)
+		rows.Scan(&counthold)
+		holder, _ := strconv.Atoi(counthold)
+		count = append(count, holder)
 	}
-	count++
-	countTransfer := strconv.Itoa(count)
+	var maxNum int = 0
+	for i := range count {
+		if maxNum <= count[i] {
+			maxNum = count[i]
+		}
+	}
+	maxNum++
+	countTransfer := strconv.Itoa(maxNum)
 	db.Exec("INSERT INTO users VALUES($1, $2, $3, $4, $5)",
 		countTransfer, username, password, fname, lname)
 
@@ -165,13 +174,22 @@ func CreateNewUserEntry(username string, password string, fname string, lname st
 
 //CreateNewAccountEntry creates a new account in the database
 func CreateNewAccountEntry(usrid string, acctype string, bal float64, db *sql.DB) {
-	var count int
-	rows, _ := db.Query("SELECT COUNT(*) as count FROM accounts")
+	var count []int
+	var counthold string
+	rows, _ := db.Query("SELECT accnum FROM accounts")
 	for rows.Next() {
-		rows.Scan(&count)
+		rows.Scan(&counthold)
+		holder, _ := strconv.Atoi(counthold)
+		count = append(count, holder)
 	}
-	count++
-	countTransfer := strconv.Itoa(count)
+	var maxNum int = 0
+	for i := range count {
+		if maxNum <= count[i] {
+			maxNum = count[i]
+		}
+	}
+	maxNum++
+	countTransfer := strconv.Itoa(maxNum)
 	db.Exec("INSERT INTO accounts VALUES($1, $2, $3, $4)",
 		countTransfer, usrid, acctype, bal)
 

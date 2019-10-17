@@ -1,5 +1,5 @@
 create table users (
-    usrID VARCHAR PRIMARY KEY,
+    usrID VARCHAR PRIMARY KEY UNIQUE,
     username varchar unique,
     passwd VARCHAR NOT NULL,
     fName VARCHAR NOT NULL,
@@ -18,7 +18,7 @@ insert into users values ('9','pparker','password','Peter','Parker');
 insert into users values ('10','jonm','password','Jon','Martinez');
 
 create table accounts (
-    accNum VARCHAR NOT NULL,
+    accNum VARCHAR NOT NULL UNIQUE,
     usrID VARCHAR REFERENCES users(usrID) NOT NULL,
     accType VARCHAR NOT NULL,
     accBal DECIMAL NOT NULL,
@@ -40,7 +40,7 @@ insert into accounts values ('12', '7', 's', 5040.23);
 insert into accounts values ('13', '3', 's', 5000.23);
 
 create table employees (
-    empid VARCHAR PRIMARY KEY,
+    empid VARCHAR PRIMARY KEY unique,
     username VARCHAR UNIQUE NOT NULL,
     pass VARCHAR NOT NULL,
     fname VARCHAR NOT NULL,
