@@ -53,4 +53,15 @@ insert into employees VALUES ('3','emp3','password','John','Ferner');
 insert into employees VALUES ('4','emp4','password','Maxwell','Shapiro');
 insert into employees VALUES ('5','emp5','password','Lelouch','DeParte');
 
+create table applications (
+    username VARCHAR PRIMARY KEY unique,
+    pass VARCHAR NOT NULL,
+    fname VARCHAR NOT NULL,
+    lname VARCHAR NOT NULL,
+    actype VARCHAR NOT NULL,
+    bal DECIMAL NOT NULL
+);
 
+INSERT INTO applications VALUES ('sobas','password','Jon','Soba','c', 4321.50);
+INSERT INTO applications VALUES ('stizzy','password','Sobek','Zaire','c', 5000.50);
+INSERT INTO applications VALUES ('toolat3','password','Tophar','Laten','c', 4321.50);
