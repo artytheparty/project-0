@@ -21,7 +21,7 @@ create table accounts (
     accNum VARCHAR NOT NULL UNIQUE,
     usrID VARCHAR REFERENCES users(usrID) NOT NULL,
     accType VARCHAR NOT NULL,
-    accBal DECIMAL NOT NULL,
+    accBal NUMERIC(10,2) NOT NULL ,
     PRIMARY KEY (accNum,usrID)
 );
 
@@ -59,7 +59,7 @@ create table applications (
     fname VARCHAR NOT NULL,
     lname VARCHAR NOT NULL,
     actype VARCHAR NOT NULL,
-    bal DECIMAL NOT NULL
+    bal NUMERIC(10,2) NOT NULL
 );
 
 INSERT INTO applications VALUES ('sobas','password','Jon','Soba','c', 4321.50);
