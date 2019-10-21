@@ -1,7 +1,6 @@
 # Welcome to the F.R.E.D. Banking System
 (Friendship,Reliability,Experince,Drive)
 
-## Insert Name Here
 Banking Application with Database persistance
 
 # User Stories
