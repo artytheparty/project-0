@@ -9,6 +9,7 @@ import (
 
 	"github.com/artytheparty/project-0/acc"
 	"github.com/artytheparty/project-0/bank"
+	"github.com/artytheparty/project-0/emp"
 	_ "github.com/lib/pq"
 )
 
@@ -17,6 +18,7 @@ func main() {
 	http.HandleFunc("/login", login)
 	http.HandleFunc("/depwit", depwit)
 	http.HandleFunc("/logout", logout)
+	http.HandleFunc("/employee", employee)
 	http.ListenAndServe(":6060", nil)
 }
 
@@ -29,7 +31,74 @@ type Userholder struct {
 	Notsignedin                          bool
 }
 
+//Application holds information on potential users
+type Application struct {
+	Username string
+	pass     string
+	Fname    string
+	lname    string
+	Acctype  string
+	Bal      float64
+}
+
+//Employeeholder holds info so that info can be passed to the browser for employees
+type Employeeholder struct {
+	Employee     emp.Employee
+	Applications []Application
+	Signedin     bool
+	WrongPorU    bool
+}
+
 var globalUser Userholder = Userholder{}
+var globalEmp Employeeholder = Employeeholder{}
+
+func employee(response http.ResponseWriter, request *http.Request) {
+	connecDB := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=disable",
+		host, port, user, password, dbname)
+	dataB, err := sql.Open("postgres", connecDB)
+	defer dataB.Close()
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println("connected to DB")
+	temp, _ := template.ParseFiles("template/emplog.html")
+	uhold := request.FormValue("username")
+	phold := request.FormValue("pw")
+	fmt.Println("userinput:", uhold, "userpass:", phold)
+	v := Employeeholder{}
+	//navigation Bools
+	v.Signedin = false
+	v.WrongPorU = false
+	empHolder := bank.GetEmployeeInfo(uhold, dataB)
+	if phold == empHolder.GetEmployeePass() {
+		v.Signedin = true
+		v.Employee.EmpID = empHolder.EmpID
+		v.Employee.EmpUsername = uhold
+		v.Employee.EmpPass = phold
+		v.Employee.EmpFName = empHolder.EmpFName
+		v.Employee.EmpLName = empHolder.EmpLName
+		rows, _ := dataB.Query("SELECT * FROM applications")
+		for rows.Next() {
+			var username string
+			var pass string
+			var fname string
+			var lname string
+			var types string
+			var bal float64
+			rows.Scan(&username, &pass, &fname, &lname, &types, &bal)
+			v.Applications = append(v.Applications, Application{username, pass, fname, lname, types, bal})
+		}
+		fmt.Println(v)
+		globalEmp = v
+
+	} else {
+		v.Signedin = false
+		v.WrongPorU = true
+	}
+
+	//executes the template last thing
+	fmt.Println(temp.Execute(response, v))
+}
 
 func logout(response http.ResponseWriter, request *http.Request) {
 	temp, _ := template.ParseFiles("template/logout.html")
@@ -128,18 +197,6 @@ func login(response http.ResponseWriter, request *http.Request) {
 	//executes the template last thing
 	fmt.Println(temp.Execute(response, v))
 }
-
-// func connect() *sql.DB {
-// 	connecDB := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=disable",
-// 		host, port, user, password, dbname)
-// 	dataB, err := sql.Open("postgres", connecDB)
-// 	defer dataB.Close()
-// 	if err != nil {
-// 		panic(err)
-// 	}
-// 	fmt.Println("connected to DB")
-// 	return dataB
-// }
 
 const (
 	host     = "localhost"

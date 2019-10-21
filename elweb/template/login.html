@@ -63,11 +63,12 @@
   {{ else if .Loggedin }}
   <!-- User has signed in here -->
   <!-- Display table for user information -->
-  <h1>The F.R.E.D. Banking System!</h1>
-  <h2>Friendship, Reliability, Experience, Drive</h2>
-  <form action="/logout" method="POST">
-    <button type="submit">Logout</button><br>
-  </form>
+  <nav class="navbar navbar-light bg-light">
+    <a class="navbar-brand" href="/">The F.R.E.D. Banking System!</a>
+    <form action="/logout" method="POST">
+        <button class="btn btn-danger" type="submit">Logout</button><br>
+      </form>
+</nav>
   <table class="table table-striped">
     <thead class="thead-dark">
       <tr>
