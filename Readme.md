@@ -14,7 +14,7 @@ Banking Application with Database persistance
 
 
 # Instructions
-wanna see how its coming along? go to ec2-18-218-210-74.us-east-2.compute.amazonaws.com 
+wanna see how its coming along? go to http://ec2-18-218-210-74.us-east-2.compute.amazonaws.com 
 please dont break anythign or hack me
 only sign in function works right now
 
