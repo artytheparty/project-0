@@ -14,6 +14,11 @@ Banking Application with Database persistance
 
 
 # Instructions
+wanna see how its coming along? go to ec2-18-218-210-74.us-east-2.compute.amazonaws.com 
+please dont break anythign or hack me
+only sign in function works right now
+
+
 create the database docker image and run it. the code should still connect without any issues.
 `go run main.go` in the directory where file is located or cloned directory
 this will run the CLI application
