@@ -6,11 +6,11 @@ Banking Application with Database persistance
 # User Stories
 - [x] Checkout Requirements.md for more!
 - [x] Checkout Examples.md for more!
-- [] open accounts for approved users
-- [] Make the application run in the webbrowser
-  - [] get rid of bugs
-  - [] implement employee page
-  - [] implement page for potential new costomers
+- [ ] open accounts for approved users
+- [ ] Make the application run in the webbrowser
+  - [ ] get rid of bugs
+  - [ ] implement employee page
+  - [ ] implement page for potential new costomers
 
 
 # Instructions
