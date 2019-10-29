@@ -19,7 +19,7 @@ func main() {
 	http.HandleFunc("/depwit", depwit)
 	http.HandleFunc("/logout", logout)
 	http.HandleFunc("/employee", employee)
-	http.ListenAndServe(":6060", nil)
+	http.ListenAndServe(":80", nil)
 }
 
 //Userholder Struct holds all the information which should be passed to the template
